@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import './App.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import Divider from 'material-ui/Divider'
+import Drawer from 'material-ui/Drawer'
 
 import PacksIndex from './packs_index'
+import PacksShow from './packs_show'
 
 class App extends Component {
   constructor(props) {
@@ -32,11 +31,9 @@ class App extends Component {
             open={this.state.open}
             onRequestChange={(open) => this.setState({open})}
           >
-            <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
-            <Divider inset={true} />
-            <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
+            <PacksIndex onPackSelect={this.handleClose}/>
           </Drawer>
-          <PacksIndex/>
+          <PacksShow />
         </div>
       </MuiThemeProvider>
     )

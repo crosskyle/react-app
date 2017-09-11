@@ -3,15 +3,21 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { readPacks } from '../actions'
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentAdd from 'material-ui/svg-icons/content/add'
+import {List, ListItem} from 'material-ui/List'
+
 
 const style = {
-  marginRight: 20,
+  marginLeft: 20,
 };
 
 
 class PacksIndex extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   componentDidMount() {
     this.props.readPacks()
   }
@@ -19,11 +25,13 @@ class PacksIndex extends Component {
   renderPacks() {
     return _.map(this.props.packs, pack => {
       return (
-        <li className="list-group-item" key={pack._id}>
-          <Link to={`/packs/${pack._id}`}>
-            {pack.title}
+        <ListItem
+          onClick={this.props.onPackSelect}
+          primaryText={pack.title}
+          key={pack.id}>
+          <Link to={`/packs/${pack.id}`}>
           </Link>
-        </li>
+        </ListItem>
       )
     })
   }
@@ -31,15 +39,15 @@ class PacksIndex extends Component {
   render() {
     return (
       <div>
-        <div className="text-xs-right">
+        <h3>Packs</h3>
+        <List>
+          {this.renderPacks()}
+        </List>
+        <div className="text-xs-left">
           <FloatingActionButton mini={true} style={style}>
             <ContentAdd />
           </FloatingActionButton>
         </div>
-        <h3>Packs</h3>
-        <ul className="list-group">
-          {this.renderPacks()}
-        </ul>
       </div>
     )
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { readPack } from '../actions'
 import _ from 'lodash'
+import {List, ListItem} from 'material-ui/List'
 
 class PacksShow extends Component {
   componentDidMount() {
@@ -16,9 +17,9 @@ class PacksShow extends Component {
       return (
         <div key={category.id}>
           <h4 key={category.title}>{category.title} </h4>
-          <ul className="list-group" key={category.id}>
+          <List key={category.id}>
             {this.renderItems(category)}
-          </ul>
+          </List>
         </div>
       )
     })
@@ -27,10 +28,9 @@ class PacksShow extends Component {
   renderItems(category) {
     return _.map(category.items, item => {
       return (
-        <li className="list-group-item" key={item.id}>
+        <ListItem key={item.id}>
           {item.title}
-        </li>
-
+        </ListItem>
       )
     })
   }
@@ -47,9 +47,9 @@ class PacksShow extends Component {
       <div>
         <h3>{pack.title}</h3>
         <p>{pack.description}</p>
-        <ul className="list-group">
+        <List>
           {this.renderCategories()}
-        </ul>
+        </List>>
       </div>
     )
   }
