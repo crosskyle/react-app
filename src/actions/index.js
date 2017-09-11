@@ -3,7 +3,8 @@ import axios from 'axios'
 import {
   CREATE_PACK,
   READ_PACK,
-  READ_PACKS
+  READ_PACKS,
+  SELECTED_PACK
 } from './types'
 
 const ROOT_URL = 'http://localhost:3050'
@@ -38,5 +39,12 @@ export function readPacks() {
   return {
     type: READ_PACKS,
     payload: response
+  }
+}
+
+export function selectedPack(packId) {
+  return {
+    type: SELECTED_PACK,
+    payload: packId
   }
 }

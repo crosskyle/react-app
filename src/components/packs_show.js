@@ -5,10 +5,6 @@ import _ from 'lodash'
 import {List, ListItem} from 'material-ui/List'
 
 class PacksShow extends Component {
-  componentDidMount() {
-    //const { id } = this.props.match.params //provided from react-router
-    this.props.readPack('59b5b55eed3db3029f698e7b')
-  }
 
   renderCategories() {
     const { pack } = this.props
@@ -40,7 +36,7 @@ class PacksShow extends Component {
     const { pack } = this.props
 
     if (!pack) {
-      return <div>Loading...</div>
+      return <div>Select a pack from the drawer</div>
     }
 
     return (
@@ -55,9 +51,8 @@ class PacksShow extends Component {
   }
 }
 
-function mapStateToProps({ packs }, ownProps) {
-  //return { pack: packs[ownProps.match.params.id] }
-  return { pack: packs['59b5b55eed3db3029f698e7b']}
+function mapStateToProps({ packs, selectedPack }) {
+  return { pack: packs[selectedPack] }
 }
 
 export default connect(mapStateToProps, { readPack })(PacksShow)
