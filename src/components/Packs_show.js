@@ -1,8 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { readPack } from '../actions'
+import { readPack, createItem, createCategory } from '../actions'
 import _ from 'lodash'
-import {List, ListItem} from 'material-ui/List'
+import FlatButton from 'material-ui/FlatButton'
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+
+} from 'material-ui/Table';
 
 class PacksShow extends Component {
 
@@ -12,10 +25,28 @@ class PacksShow extends Component {
     return _.map(pack.categories, category => {
       return (
         <div key={category.id}>
-          <h4 key={category.title}>{category.title} </h4>
-          <List key={category.id}>
-            {this.renderItems(category)}
-          </List>
+          <Table fixedHeader={true}>
+            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+              <TableRow>
+                <TableHeaderColumn colSpan="5" style={{textAlign: 'left', fontSize: '14px'}}>
+                  {category.title}
+                </TableHeaderColumn>
+              </TableRow>
+              <TableRow>
+                <TableHeaderColumn colSpan="2">Item Name</TableHeaderColumn>
+                <TableHeaderColumn>Weight(oz)</TableHeaderColumn>
+                <TableHeaderColumn>Quantity</TableHeaderColumn>
+                <TableHeaderColumn> </TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody displayRowCheckbox={false}>
+              {this.renderItems(category)}
+            </TableBody>
+          </Table>
+          <FlatButton
+            label="add an item"
+            primary={true}
+          />
         </div>
       )
     })
@@ -24,9 +55,21 @@ class PacksShow extends Component {
   renderItems(category) {
     return _.map(category.items, item => {
       return (
-        <ListItem key={item.id}>
-          {item.title}
-        </ListItem>
+        <TableRow key={item.id}>
+          <TableRowColumn colSpan="2">{item.title}</TableRowColumn>
+          <TableRowColumn>{item.weight}</TableRowColumn>
+          <TableRowColumn>{item.quantity}</TableRowColumn>
+          <TableHeaderColumn>
+            <IconMenu
+              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+              targetOrigin={{horizontal: 'right', vertical: 'top'}}
+            >
+              <MenuItem primaryText="Edit" />
+              <MenuItem primaryText="Remove" />
+            </IconMenu>
+          </TableHeaderColumn>
+        </TableRow>
       )
     })
   }
@@ -36,16 +79,18 @@ class PacksShow extends Component {
     const { pack } = this.props
 
     if (!pack) {
-      return <div>Select a pack from the drawer</div>
+      return <div style={{textAlign: 'center'}}>Select a pack from the drawer</div>
     }
 
     return (
-      <div>
-        <h3>{pack.title}</h3>
-        <p>{pack.description}</p>
-        <List>
-          {this.renderCategories()}
-        </List>>
+      <div style={{textAlign: 'center'}}>
+        <h3 style={{textAlign: 'left', marginLeft: 30}}>{pack.title}</h3>
+        {this.renderCategories()}
+        <br /><br />
+        <FlatButton
+          label="add a category"
+          primary={true}
+        />
       </div>
     )
   }
@@ -55,4 +100,4 @@ function mapStateToProps({ packs, selectedPack }) {
   return { pack: packs[selectedPack] }
 }
 
-export default connect(mapStateToProps, { readPack })(PacksShow)
+export default connect(mapStateToProps, { readPack, createItem, createCategory })(PacksShow)

@@ -26,7 +26,7 @@ class ItemsIndex extends Component {
           rightIconButton={
             <IconButton
               touch={true}
-              onClick={() => { deleteItem(item.id) }}
+              onClick={() => { this.props.deleteItem(item.id) }}
             >
               <DeleteIcon color={grey400} hoverColor={red500} />
             </IconButton>

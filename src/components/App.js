@@ -24,7 +24,8 @@ class App extends Component {
       <MuiThemeProvider>
         <div className="App">
           <AppBar
-            title="Sick App Bro!"
+            title="App"
+            style={{textAlign: 'center'}}
             onLeftIconButtonTouchTap={this.handleToggle}
           />
           <Drawer
