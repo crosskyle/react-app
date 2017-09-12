@@ -1,15 +1,9 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { readPacks, selectedPack } from '../actions'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/content/add'
-import {List, ListItem} from 'material-ui/List'
-
-
-const style = {
-  marginTop: 10,
-}
+import { readPacks, selectedPack, createPack } from '../actions'
+import FlatButton from 'material-ui/FlatButton'
+import {List, ListItem } from 'material-ui/List'
 
 
 class PacksIndex extends Component {
@@ -38,15 +32,18 @@ class PacksIndex extends Component {
 
   render() {
     return (
-      <div className="container-fluid" style={style}>
-        <div className="row">
-          <div className="col-8">
-            <h2>Packs</h2>
+      <div className="container-fluid">
+        <div className="row around-sm">
+          <div className="col">
+            <h3>Packs</h3>
           </div>
-          <div className="col-2">
-            <FloatingActionButton mini={true}>
-              <ContentAdd />
-            </FloatingActionButton>
+          <div className="col">
+            <FlatButton
+              onClick={() => this.props.createPack()}
+              label="add a pack"
+              primary={true}
+              style={{marginTop: 12}}
+            />
           </div>
         </div>
         <List>
@@ -62,4 +59,4 @@ function mapStateToProps(state) {
 }
 
 //using readPacks: readPacks instead of mapDispatch
-export default connect(mapStateToProps, { readPacks, selectedPack })(PacksIndex)
+export default connect(mapStateToProps, { createPack, readPacks, selectedPack })(PacksIndex)

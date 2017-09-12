@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import './App.css'
+import './style/App.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 
 
-import PacksIndex from './packs_index'
-import PacksShow from './packs_show'
+import PacksIndex from './Packs_index'
+import ItemsIndex from './Items_index'
+import PacksShow from './Packs_show'
 
 class App extends Component {
   constructor(props) {
@@ -27,12 +28,13 @@ class App extends Component {
             onLeftIconButtonTouchTap={this.handleToggle}
           />
           <Drawer
-            docked={true}
-            width={200}
+            docked={false}
+            width={250}
             open={this.state.open}
             onRequestChange={(open) => this.setState({open})}
           >
             <PacksIndex onPackSelect={this.handleClose}/>
+            <ItemsIndex/>
           </Drawer>
           <PacksShow />
         </div>
