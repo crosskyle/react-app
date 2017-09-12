@@ -90,6 +90,7 @@ class PacksShow extends Component {
         <FlatButton
           label="add a category"
           primary={true}
+          
         />
       </div>
     )
