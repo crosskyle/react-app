@@ -7,7 +7,7 @@ import Drawer from 'material-ui/Drawer'
 
 import PacksIndex from './Packs_index'
 import ItemsIndex from './Items_index'
-import PacksShow from './Packs_show'
+import TabSwipe from './TabSwipe'
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +28,7 @@ class App extends Component {
             style={{textAlign: 'center'}}
             onLeftIconButtonTouchTap={this.handleToggle}
           />
+          <TabSwipe />
           <Drawer
             docked={false}
             width={250}
@@ -37,7 +38,6 @@ class App extends Component {
             <PacksIndex onPackSelect={this.handleClose}/>
             <ItemsIndex/>
           </Drawer>
-          <PacksShow />
         </div>
       </MuiThemeProvider>
     )

@@ -27,8 +27,11 @@ export function createPack() {
 }
 
 
-export function createCategory() {
-  const response = {}
+export function createCategory(packId, title) {
+  const response = axios.post(`${ROOT_URL}/api/users/${USER_ID}/packs/${packId}`, {
+    title: title
+  })
+    .then((resp) => resp.data)
 
   return {
     type: CREATE_CATEGORY,

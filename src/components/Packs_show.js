@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { readPack, createItem, createCategory } from '../actions'
+import { createItem, createCategory } from '../actions'
 import _ from 'lodash'
 import FlatButton from 'material-ui/FlatButton'
 import IconMenu from 'material-ui/IconMenu';
@@ -27,13 +27,13 @@ class PacksShow extends Component {
         <div key={category.id}>
           <Table fixedHeader={true}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-              <TableRow>
-                <TableHeaderColumn colSpan="5" style={{textAlign: 'left', fontSize: '14px'}}>
+              <TableRow >
+                <TableHeaderColumn colSpan="6" style={{fontSize: '14px'}}>
                   {category.title}
                 </TableHeaderColumn>
               </TableRow>
               <TableRow>
-                <TableHeaderColumn colSpan="2">Item Name</TableHeaderColumn>
+                <TableHeaderColumn colSpan="3">Item Name</TableHeaderColumn>
                 <TableHeaderColumn>Weight(oz)</TableHeaderColumn>
                 <TableHeaderColumn>Quantity</TableHeaderColumn>
                 <TableHeaderColumn> </TableHeaderColumn>
@@ -56,7 +56,7 @@ class PacksShow extends Component {
     return _.map(category.items, item => {
       return (
         <TableRow key={item.id}>
-          <TableRowColumn colSpan="2">{item.title}</TableRowColumn>
+          <TableRowColumn colSpan="3">{item.title}</TableRowColumn>
           <TableRowColumn>{item.weight}</TableRowColumn>
           <TableRowColumn>{item.quantity}</TableRowColumn>
           <TableHeaderColumn>
@@ -90,6 +90,7 @@ class PacksShow extends Component {
         <FlatButton
           label="add a category"
           primary={true}
+          onClick={() => this.props.createCategory(pack.id)}
         />
       </div>
     )
@@ -100,4 +101,4 @@ function mapStateToProps({ packs, selectedPack }) {
   return { pack: packs[selectedPack] }
 }
 
-export default connect(mapStateToProps, { readPack, createItem, createCategory })(PacksShow)
+export default connect(mapStateToProps, { createItem, createCategory })(PacksShow)
