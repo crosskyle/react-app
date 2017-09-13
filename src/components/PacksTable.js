@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { createItem } from '../actions'
 import _ from 'lodash'
-import FlatButton from 'material-ui/FlatButton'
 import {
   Table,
   TableBody,
@@ -15,36 +12,10 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import Dialog from 'material-ui/Dialog';
 
-const actions = [
-  <FlatButton
-    label="Cancel"
-    primary={true}
-    onClick={this.handleClose}
-  />,
-  <FlatButton
-    label="Submit"
-    primary={true}
-    disabled={true}
-    onClick={this.handleClose}
-  />
-];
+import ItemAddModal from './ItemAddModal'
 
 class PacksTable extends Component {
-
-  state = {
-    open: false,
-  };
-
-  handleOpen = () => {
-    this.setState({open: true});
-  };
-
-  handleClose = () => {
-    this.setState({open: false});
-  };
-
 
   renderCategories(categories) {
     return _.map(categories, category => {
@@ -68,33 +39,9 @@ class PacksTable extends Component {
               {this.renderItems(category)}
             </TableBody>
           </Table>
-          <FlatButton
-            label="add an item"
-            primary={true}
-            onClick={this.handleOpen}
-          />
-          <Dialog
-            title="Dialog With Actions"
-            actions={
-              [
-                <FlatButton
-                  label="Cancel"
-                  primary={true}
-                  onClick={this.handleClose}
-                />,
-                <FlatButton
-                  label="Submit"
-                  primary={true}
-                  disabled={true}
-                  onClick={this.handleClose}
-                />
-              ]
-            }
-            modal={true}
-            open={this.state.open}
-          >
-            Only actions can close this dialog.
-          </Dialog>
+
+          <ItemAddModal/>
+
         </div>
       )
     })
@@ -132,4 +79,4 @@ class PacksTable extends Component {
   }
 }
 
-export default connect(null, { createItem })(PacksTable)
+export default PacksTable
