@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
-import PacksShow from './Packs_show'
+import PacksShow from './PacksShow'
 
 const styles = {
   headline: {

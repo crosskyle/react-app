@@ -5,8 +5,8 @@ import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 
 
-import PacksIndex from './Packs_index'
-import ItemsIndex from './Items_index'
+import PacksIndex from './PacksIndex'
+import ItemsIndex from './ItemsIndex'
 import TabSwipe from './TabSwipe'
 
 class App extends Component {

@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createItem, createCategory } from '../actions'
+import { createItem } from '../actions'
 import _ from 'lodash'
 import FlatButton from 'material-ui/FlatButton'
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import {
   Table,
   TableBody,
@@ -14,15 +10,17 @@ import {
   TableHeaderColumn,
   TableRow,
   TableRowColumn,
+} from 'material-ui/Table'
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-} from 'material-ui/Table';
 
-class PacksShow extends Component {
+class PacksTable extends Component {
 
-  renderCategories() {
-    const { pack } = this.props
-
-    return _.map(pack.categories, category => {
+  renderCategories(categories) {
+    return _.map(categories, category => {
       return (
         <div key={category.id}>
           <Table fixedHeader={true}>
@@ -74,31 +72,14 @@ class PacksShow extends Component {
     })
   }
 
-  render () {
 
-    const { pack } = this.props
-
-    if (!pack) {
-      return <div style={{textAlign: 'center'}}>Select a pack from the drawer</div>
-    }
-
-    return (
-      <div style={{textAlign: 'center'}}>
-        <h3 style={{textAlign: 'left', marginLeft: 30}}>{pack.title}</h3>
-        {this.renderCategories()}
-        <br /><br />
-        <FlatButton
-          label="add a category"
-          primary={true}
-          onClick={() => this.props.createCategory(pack.id)}
-        />
+  render() {
+    return(
+      <div>
+        {this.renderCategories(this.props.categories)}
       </div>
     )
   }
 }
 
-function mapStateToProps({ packs, selectedPack }) {
-  return { pack: packs[selectedPack] }
-}
-
-export default connect(mapStateToProps, { createItem, createCategory })(PacksShow)
+export default connect(null, { createItem })(PacksTable)
