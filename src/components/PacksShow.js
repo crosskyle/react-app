@@ -21,7 +21,7 @@ class PacksShow extends Component {
     return (
       <div style={{textAlign: 'center'}}>
         <h3 style={{textAlign: 'left', marginLeft: 30}}>{pack.title}</h3>
-        <CategoryList categories={pack.categories}/>
+        <CategoryList packId={pack.id} categories={pack.categories}/>
         <br /><br />
         <FlatButton
           label="add a category"

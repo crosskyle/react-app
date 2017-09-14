@@ -4,7 +4,6 @@ import {
   DELETE_ITEM,
   CREATE_PACK,
   CREATE_CATEGORY,
-  CREATE_ITEM,
   READ_PACK,
   READ_PACKS,
   SELECTED_PACK,
@@ -40,12 +39,27 @@ export function createCategory(packId, title) {
 }
 
 
-export function createItem() {
-  const response = {}
-
-  return {
-    type: CREATE_ITEM,
-    payload: response
+export function createItemInCategory(packId, categoryId, reqObj) {
+  return function(dispatch) {
+    axios.post(`${ROOT_URL}/api/users/${USER_ID}/packs/${packId}/categories/${categoryId}/items`, reqObj)
+      .then(() => {
+        axios.get(`${ROOT_URL}/api/users/${USER_ID}/packs`)
+          .then((resp) => {
+            dispatch({
+              type: READ_PACKS,
+              payload: resp.data
+            })
+          })
+          .then(() => {
+            axios.get(`${ROOT_URL}/api/users/${USER_ID}`)
+              .then((resp) =>  {
+                dispatch({
+                  type: READ_ITEMS,
+                  payload: resp.data.items
+                })
+              })
+          })
+      })
   }
 }
 

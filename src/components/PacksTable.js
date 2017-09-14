@@ -40,7 +40,7 @@ class PacksTable extends Component {
             </TableBody>
           </Table>
 
-          <ItemAddModal/>
+          <ItemAddModal packId={this.props.packId} categoryId={category.id}/>
 
         </div>
       )
