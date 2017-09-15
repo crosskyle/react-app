@@ -6,8 +6,11 @@ import {
   XYPlot,
   XAxis,
   YAxis,
-  HorizontalBarSeries
+  HorizontalBarSeries,
+  makeWidthFlexible
 } from 'react-vis'
+
+const FlexibleXYPlot = makeWidthFlexible(XYPlot)
 
 class PackVis extends Component {
   constructor(props) {
@@ -61,14 +64,13 @@ class PackVis extends Component {
 
     return (
       <div>
-        <XYPlot stackBy="x" margin={{left: 125, right: 100}}
+        <FlexibleXYPlot stackBy="x" margin={{left: 125, right: 100}}
                 yType={'ordinal'}
-                width={600}
                 height={300}>
           <XAxis />
           <YAxis style={{text: {marginLeft: 20}}}/>
           {packVisData.map(this.renderChart)}
-        </XYPlot>
+        </FlexibleXYPlot>
       </div>
     )
   }
