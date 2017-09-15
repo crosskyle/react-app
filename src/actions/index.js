@@ -7,7 +7,8 @@ import {
   READ_PACK,
   READ_PACKS,
   SELECTED_PACK,
-  READ_ITEMS
+  READ_ITEMS,
+  PACK_VIS
 } from './types'
 
 const ROOT_URL = 'http://localhost:3050'
@@ -116,13 +117,42 @@ export function deleteItem(itemId) {
       .then(() => {
         axios.get(`${ROOT_URL}/api/users/${USER_ID}/packs`)
           .then((resp) => {
-            console.log(resp.data)
             dispatch({
               type: READ_PACKS,
               payload: resp.data
             })
           })
       })
+  }
+}
+
+export function packVis(pack) {
+  let series = []
+  let maxItems = 0
+
+  pack.categories.forEach((category) => {
+    if (category.items.length > maxItems)
+      maxItems = category.items.length
+  })
+
+
+  for (let i = 0; i < maxItems; i++) {
+    let seriesInstance = []
+    pack.categories.forEach((category) => {
+      let obj = {}
+      if (category.items[i] && category.items[i].weight)
+        obj.x = category.items[i].weight
+      else
+        obj.x = 0
+      obj.y = category.title
+      seriesInstance.push(obj)
+    })
+    series.push(seriesInstance)
+  }
+
+  return {
+    type: PACK_VIS,
+    payload: series
   }
 }
 

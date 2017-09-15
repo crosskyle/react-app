@@ -13,7 +13,7 @@ class PacksShow extends Component {
     if (!pack) {
       return (
       <div style={{textAlign: 'center', marginTop: 20}}>
-        Select a pack from the drawer
+        Select a pack
       </div>
       )
     }

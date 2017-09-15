@@ -4,7 +4,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 
-
 import PacksIndex from './PacksIndex'
 import ItemsIndex from './ItemsIndex'
 import TabSwipe from './TabSwipe'
