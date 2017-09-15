@@ -43,35 +43,29 @@ export function createCategory(packId, title) {
 export function createItemInCategory(packId, categoryId, reqObj) {
   return function(dispatch) {
     axios.post(`${ROOT_URL}/api/users/${USER_ID}/packs/${packId}/categories/${categoryId}/items`, reqObj)
+      .then((resp) => {
+        dispatch({
+          type: READ_PACK,
+          payload: resp.data
+        })
+        return resp
+      })
+      .then((resp) => {
+        let series = updatePackVis(resp.data)
+        dispatch({
+          type: PACK_VIS,
+          payload: series
+        })
+      })
       .then(() => {
-        axios.get(`${ROOT_URL}/api/users/${USER_ID}/packs`)
-          .then((resp) => {
+        axios.get(`${ROOT_URL}/api/users/${USER_ID}`)
+          .then((resp) =>  {
             dispatch({
-              type: READ_PACKS,
-              payload: resp.data
+              type: READ_ITEMS,
+              payload: resp.data.items
             })
           })
-          .then(() => {
-            axios.get(`${ROOT_URL}/api/users/${USER_ID}`)
-              .then((resp) =>  {
-                dispatch({
-                  type: READ_ITEMS,
-                  payload: resp.data.items
-                })
-              })
-          })
       })
-  }
-}
-
-
-export function readPack(packId) {
-  const response = axios.get(`${ROOT_URL}/api/users/${USER_ID}/packs/${packId}`)
-    .then((resp) => resp.data)
-
-  return {
-    type: READ_PACK,
-    payload: response
   }
 }
 
@@ -85,6 +79,7 @@ export function readPacks() {
     payload: response
   }
 }
+
 
 export function readItems() {
   const response = axios.get(`${ROOT_URL}/api/users/${USER_ID}`)
@@ -105,7 +100,7 @@ export function selectedPack(packId) {
 }
 
 
-export function deleteItem(itemId) {
+export function deleteItem(itemId, pack) {
   return function(dispatch) {
     axios.delete(`${ROOT_URL}/api/users/${USER_ID}/items/${itemId}`)
       .then(() => {
@@ -121,12 +116,32 @@ export function deleteItem(itemId) {
               type: READ_PACKS,
               payload: resp.data
             })
+            if (pack) {
+              const updatedPack = resp.data.find(o => o.id === pack.id)
+              const series = updatePackVis(updatedPack)
+              dispatch({
+                type: PACK_VIS,
+                payload: series
+              })
+            }
           })
       })
   }
 }
 
-export function packVis(pack) {
+
+export function getPackVisData(pack) {
+
+  const series = updatePackVis(pack)
+
+  return {
+    type: PACK_VIS,
+    payload: series
+  }
+}
+
+
+function updatePackVis(pack) {
   let series = []
   let maxItems = 0
 
@@ -135,24 +150,27 @@ export function packVis(pack) {
       maxItems = category.items.length
   })
 
-
   for (let i = 0; i < maxItems; i++) {
     let seriesInstance = []
     pack.categories.forEach((category) => {
       let obj = {}
-      if (category.items[i] && category.items[i].weight)
-        obj.x = category.items[i].weight
-      else
+      if (category.items[i] && category.items[i].weight) {
+        obj.x = category.items[i].weight * category.items[i].quantity
+        obj.weight = category.items[i].weight * category.items[i].quantity
+      }
+      else {
         obj.x = 0
+        obj.weight = 0
+      }
+      if (category.items[i] && category.items[i].title)
+        obj.title = category.items[i].title
+      else
+        obj.title = ''
       obj.y = category.title
       seriesInstance.push(obj)
     })
     series.push(seriesInstance)
   }
 
-  return {
-    type: PACK_VIS,
-    payload: series
-  }
+  return series
 }
-

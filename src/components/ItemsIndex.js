@@ -26,7 +26,7 @@ class ItemsIndex extends Component {
           rightIconButton={
             <IconButton
               touch={true}
-              onClick={() => { this.props.deleteItem(item.id) }}
+              onClick={() => {this.props.deleteItem(item.id, this.props.pack)}}
             >
               <DeleteIcon color={grey400} hoverColor={red500} />
             </IconButton>
@@ -54,8 +54,8 @@ class ItemsIndex extends Component {
   }
 }
 
-function mapStateToProps({ items }) {
-  return { items }
+function mapStateToProps({ items, packs, selectedPack }) {
+  return { items, pack: packs[selectedPack] }
 }
 
 export default connect(mapStateToProps, { readItems, deleteItem })(ItemsIndex)
