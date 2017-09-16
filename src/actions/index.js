@@ -3,7 +3,6 @@ import axios from 'axios'
 import {
   DELETE_ITEM,
   CREATE_PACK,
-  CREATE_CATEGORY,
   READ_PACK,
   READ_PACKS,
   SELECTED_PACK,
@@ -27,14 +26,14 @@ export function createPack() {
 }
 
 
-export function createCategory(packId, title) {
-  const response = axios.post(`${ROOT_URL}/api/users/${USER_ID}/packs/${packId}`, {
-    title: title
+export function createCategory(packId, reqObj) {
+  const response = axios.post(`${ROOT_URL}/api/users/${USER_ID}/packs/${packId}/categories`, {
+    title: reqObj.title
   })
     .then((resp) => resp.data)
 
   return {
-    type: CREATE_CATEGORY,
+    type: READ_PACK,
     payload: response
   }
 }

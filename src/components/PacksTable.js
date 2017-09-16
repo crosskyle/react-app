@@ -21,7 +21,7 @@ class PacksTable extends Component {
     return _.map(categories, category => {
       return (
         <div key={category.id}>
-          <Table fixedHeader={true}>
+          <Table fixedHeader={true} onRowHover={(d) => console.log(category.items[d])}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow >
                 <TableHeaderColumn colSpan="6" style={{fontSize: '14px'}}>
@@ -35,7 +35,7 @@ class PacksTable extends Component {
                 <TableHeaderColumn> </TableHeaderColumn>
               </TableRow>
             </TableHeader>
-            <TableBody displayRowCheckbox={false}>
+            <TableBody showRowHover={true} displayRowCheckbox={false}>
               {this.renderItems(category)}
             </TableBody>
           </Table>
@@ -50,7 +50,7 @@ class PacksTable extends Component {
   renderItems(category) {
     return _.map(category.items, item => {
       return (
-        <TableRow key={item.id}>
+        <TableRow key={item.id} hoverable={true}>
           <TableRowColumn colSpan="3">{item.title}</TableRowColumn>
           <TableRowColumn>{item.weight}</TableRowColumn>
           <TableRowColumn>{item.quantity}</TableRowColumn>

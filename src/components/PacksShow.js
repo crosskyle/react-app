@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createCategory } from '../actions'
-import FlatButton from 'material-ui/FlatButton'
 
-import CategoryList from './PacksTable'
+import PacksTable from './PacksTable'
+import CategoryAddModal from './CategoryAddModal'
 
 class PacksShow extends Component {
 
@@ -21,13 +20,9 @@ class PacksShow extends Component {
     return (
       <div style={{textAlign: 'center'}}>
         <h3 style={{textAlign: 'left', marginLeft: 30}}>{pack.title}</h3>
-        <CategoryList packId={pack.id} categories={pack.categories}/>
+        <PacksTable packId={pack.id} categories={pack.categories}/>
         <br /><br />
-        <FlatButton
-          label="add a category"
-          primary={true}
-          onClick={() => this.props.createCategory(pack.id)}
-        />
+        <CategoryAddModal packId={pack.id}/>
       </div>
     )
   }
@@ -37,4 +32,4 @@ function mapStateToProps({ packs, selectedPack }) {
   return { pack: packs[selectedPack] }
 }
 
-export default connect(mapStateToProps, { createCategory })(PacksShow)
+export default connect(mapStateToProps, null)(PacksShow)

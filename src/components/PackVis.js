@@ -137,10 +137,7 @@ class PackVis extends Component {
               : null}
           </FlexibleXYPlot>
           <FlatButton
-            onClick={() => {
-              this.setState({vertical: !(this.state.vertical)})
-              console.log(this.state.vertical)
-            }}
+            onClick={() => { this.setState({vertical: !(this.state.vertical)})}}
             label="orientation"
             primary={true}
             style={{marginTop: 12, marginLeft: 12}}
@@ -179,10 +176,7 @@ class PackVis extends Component {
             : null}
         </FlexibleXYPlot>
         <FlatButton
-          onClick={() => {
-            this.setState({vertical: !(this.state.vertical)})
-            console.log(this.state.vertical)
-          }}
+          onClick={() => { this.setState({vertical: !(this.state.vertical)})}}
           label="orientation"
           primary={true}
           style={{marginTop: 12, marginLeft: 12}}

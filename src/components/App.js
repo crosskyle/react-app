@@ -3,6 +3,7 @@ import './style/App.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
+import ExpandMore from 'material-ui/svg-icons/navigation/expand-more'
 
 import PacksIndex from './PacksIndex'
 import ItemsIndex from './ItemsIndex'
@@ -23,9 +24,10 @@ class App extends Component {
       <MuiThemeProvider>
         <div className="App">
           <AppBar
-            title="App"
+            title=""
             style={{textAlign: 'center'}}
             onLeftIconButtonTouchTap={this.handleToggle}
+            iconElementRight={<ExpandMore style={{color: 'white'}}/>}
           />
           <TabSwipe />
           <Drawer
