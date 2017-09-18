@@ -64,8 +64,10 @@ class ItemAddModal extends Component {
           onClick={this.handleOpen}
         />
         <Dialog
-          title="Dialog With Actions"
+          title="Add an Item"
           open={this.state.open}
+          modal={false}
+          onRequestClose={() => this.setState({open: false})}
         >
           <form onSubmit={this.onFormSubmit}>
             <TextField

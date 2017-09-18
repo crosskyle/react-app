@@ -27,7 +27,7 @@ class TabSwipe extends Component {
       <div>
         <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
           <Tab icon={<LibraryIcon style={{color: 'white'}}/>} value={0} />
-          <Tab label={<PollIcon style={{color: 'white'}}/>} value={1} />
+          <Tab icon={<PollIcon style={{color: 'white'}}/>} value={1} />
         </Tabs>
         <SwipeableViews index={this.state.slideIndex} onChangeIndex={this.handleChange}>
           <div>

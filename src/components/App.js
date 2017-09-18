@@ -24,7 +24,7 @@ class App extends Component {
       <MuiThemeProvider>
         <div className="App">
           <AppBar
-            title=""
+            title="BackPack"
             style={{textAlign: 'center'}}
             onLeftIconButtonTouchTap={this.handleToggle}
             iconElementRight={<ExpandMore style={{color: 'white'}}/>}

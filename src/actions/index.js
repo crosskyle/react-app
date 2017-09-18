@@ -26,6 +26,17 @@ export function createPack() {
 }
 
 
+export function updatePack(packId, reqObj) {
+  const response = axios.put(`${ROOT_URL}/api/users/${USER_ID}/packs/${packId}`, reqObj)
+    .then((resp) => resp.data)
+
+  return {
+    type: CREATE_PACK,
+    payload: response
+  }
+}
+
+
 export function createCategory(packId, reqObj) {
   const response = axios.post(`${ROOT_URL}/api/users/${USER_ID}/packs/${packId}/categories`, {
     title: reqObj.title

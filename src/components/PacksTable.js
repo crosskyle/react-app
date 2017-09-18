@@ -20,19 +20,22 @@ class PacksTable extends Component {
   renderCategories(categories) {
     return _.map(categories, category => {
       return (
-        <div key={category.id}>
-          <Table fixedHeader={true} onRowHover={(d) => console.log(category.items[d])}>
+        <div style={{ marginLeft: 0, marginRight: 0}} key={category.id}>
+          <Table
+            fixedHeader={true}
+            onRowHover={(d) =>  {}/* console.log(category.items[d])*/}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow >
-                <TableHeaderColumn colSpan="6" style={{fontSize: '14px'}}>
+                <TableHeaderColumn colSpan="12" style={{fontSize: '14px'}}>
                   {category.title}
                 </TableHeaderColumn>
               </TableRow>
               <TableRow>
-                <TableHeaderColumn colSpan="3">Item Name</TableHeaderColumn>
-                <TableHeaderColumn>Weight(oz)</TableHeaderColumn>
-                <TableHeaderColumn>Quantity</TableHeaderColumn>
-                <TableHeaderColumn> </TableHeaderColumn>
+                <TableHeaderColumn colSpan="3">Name</TableHeaderColumn>
+                <TableHeaderColumn colSpan="6">Description</TableHeaderColumn>
+                <TableHeaderColumn colSpan="1">Oz</TableHeaderColumn>
+                <TableHeaderColumn colSpan="1">Qu</TableHeaderColumn>
+                <TableHeaderColumn colSpan="2"> </TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody showRowHover={true} displayRowCheckbox={false}>
@@ -52,11 +55,15 @@ class PacksTable extends Component {
       return (
         <TableRow key={item.id} hoverable={true}>
           <TableRowColumn colSpan="3">{item.title}</TableRowColumn>
-          <TableRowColumn>{item.weight}</TableRowColumn>
-          <TableRowColumn>{item.quantity}</TableRowColumn>
-          <TableHeaderColumn>
+          <TableRowColumn colSpan="6">{item.description}</TableRowColumn>
+          <TableRowColumn colSpan="1">{item.weight}</TableRowColumn>
+          <TableRowColumn colSpan="1">{item.quantity}</TableRowColumn>
+          <TableHeaderColumn colSpan="2">
             <IconMenu
-              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+              iconButtonElement={
+                <IconButton style={{ paddingRight: '20em', paddingLeft: '0em', verticalAlign: 'middle', textAlign: 'left'}}>
+                  <MoreVertIcon />
+                </IconButton>}
               anchorOrigin={{horizontal: 'right', vertical: 'top'}}
               targetOrigin={{horizontal: 'right', vertical: 'top'}}
             >

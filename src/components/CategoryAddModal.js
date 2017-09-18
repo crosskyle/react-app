@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { createCategory } from '../actions'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
-import Dialog from 'material-ui/Dialog';
+import Dialog from 'material-ui/Dialog'
 
 class CategoryAddModal extends Component {
 
@@ -49,8 +49,10 @@ class CategoryAddModal extends Component {
           onClick={this.handleOpen}
         />
         <Dialog
-          title="Dialog With Actions"
+          title="Add a Category"
           open={this.state.open}
+          modal={false}
+          onRequestClose={() => this.setState({open: false})}
         >
           <form onSubmit={this.onFormSubmit}>
             <TextField

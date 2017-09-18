@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import PackEditModal from './PackEditModal'
 import PacksTable from './PacksTable'
 import CategoryAddModal from './CategoryAddModal'
 
@@ -18,8 +19,8 @@ class PacksShow extends Component {
     }
 
     return (
-      <div style={{textAlign: 'center'}}>
-        <h3 style={{textAlign: 'left', marginLeft: 30}}>{pack.title}</h3>
+      <div style={{marginTop: 10}}>
+        <PackEditModal pack={pack}/>
         <PacksTable packId={pack.id} categories={pack.categories}/>
         <br /><br />
         <CategoryAddModal packId={pack.id}/>
