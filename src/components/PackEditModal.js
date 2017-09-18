@@ -42,10 +42,10 @@ class PackEditModal extends Component {
         <span style={{textAlign: 'left', marginLeft: 30}}>{this.props.pack.title}</span>
         <IconButton
           onClick={() => this.setState({open: true})}
-          style={{ paddingLeft: '20em', paddingRight: '0em',
-            verticalAlign: 'middle', textAlign: 'right'}}
+          style={{ paddingRight: '0px', paddingBottom: '6px',
+            verticalAlign: 'middle', textAlign: 'right', paddingTop: "0px", MarginTop: "0em"}}
         >
-          <EditIcon/>
+          <EditIcon />
         </IconButton>
         <Dialog
           title="Edit Pack"

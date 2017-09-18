@@ -17,7 +17,7 @@ import FontIcon from 'material-ui/FontIcon'
 import ItemAddModal from './ItemAddModal'
 
 const columnStyle = {
- marginLeft: '0em',
+  marginLeft: '0em',
   paddingLeft: '.25em',
   marginRight: '0em',
   paddingRight: '.25em',
@@ -30,29 +30,29 @@ class PacksTable extends Component {
   renderCategories(categories) {
     return _.map(categories, category => {
       return (
-        <div style={{ marginLeft: 0, marginRight: 0}} key={category.id}>
+        <div style={{ paddingLeft: '.5em', paddingRight: '.5em'}} key={category.id}>
           <Table
             fixedHeader={true}
             onRowHover={(d) =>  {}/* console.log(category.items[d])*/}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow >
-                <TableHeaderColumn colSpan="37" style={{fontSize: '14px'}}>
+                <TableHeaderColumn colSpan="35" style={{fontSize: '14px'}}>
                   {category.title}
                 </TableHeaderColumn>
               </TableRow>
               <TableRow>
                 <TableHeaderColumn style={{
                   marginLeft: '0em',
-                  paddingLeft: '1.25em',
+                  paddingLeft: '.5em',
                   marginRight: '0em',
                   paddingRight: '.25em',
                   verticalAlign: 'middle',
                   textAlign: 'left'}} colSpan="12">Name</TableHeaderColumn>
                 <TableHeaderColumn style={columnStyle} colSpan="12">Description</TableHeaderColumn>
                 <TableHeaderColumn style={columnStyle} colSpan="3">Oz</TableHeaderColumn>
-                <TableHeaderColumn style={columnStyle} colSpan="2">Qu</TableHeaderColumn>
+                <TableHeaderColumn style={columnStyle} colSpan="2">Qty</TableHeaderColumn>
                 <TableHeaderColumn style={columnStyle} colSpan="4"> </TableHeaderColumn>
-                <TableHeaderColumn style={columnStyle} colSpan="4"> </TableHeaderColumn>
+                <TableHeaderColumn style={columnStyle} colSpan="2"> </TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody showRowHover={true} displayRowCheckbox={false}>
@@ -69,11 +69,15 @@ class PacksTable extends Component {
 
   renderItems(category) {
     return _.map(category.items, item => {
+
+      let wornColor = (item.worn) ? 'blue' : '#D3D3D3'
+      let consumableColor = (item.consumable) ? 'blue' : '#D3D3D3'
+
       return (
         <TableRow key={item.id} hoverable={true}>
           <TableRowColumn style={{
             marginLeft: '0em',
-            paddingLeft: '1.25em',
+            paddingLeft: '.5em',
             marginRight: '0em',
             paddingRight: '.25em',
             verticalAlign: 'middle',
@@ -81,9 +85,10 @@ class PacksTable extends Component {
           <TableRowColumn style={columnStyle} colSpan="12">{item.description}</TableRowColumn>
           <TableRowColumn style={columnStyle} colSpan="3">{item.weight}</TableRowColumn>
           <TableRowColumn style={columnStyle} colSpan="2">{item.quantity}</TableRowColumn>
-          <TableRowColumn style={columnStyle} colSpan="4"><FontIcon className="material-icons" style={{color:"green", fontSize:"18px"}}>accessibility</FontIcon>
-            <FontIcon className="material-icons" style={{color:"green", fontSize:"16px"}}>restaurant_menu</FontIcon></TableRowColumn>
-          <TableHeaderColumn colSpan="4"
+          <TableRowColumn style={columnStyle} colSpan="4">
+            <FontIcon className="material-icons" style={{color:wornColor, fontSize:"18px"}}>accessibility</FontIcon>
+            <FontIcon className="material-icons" style={{color:consumableColor, fontSize:"16px"}}>restaurant_menu</FontIcon></TableRowColumn>
+          <TableHeaderColumn colSpan="2"
             style={columnStyle} >
             <IconMenu
               iconButtonElement={

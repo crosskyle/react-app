@@ -108,12 +108,12 @@ class PackVis extends Component {
 
     if (!this.state.vertical) {
       return (
-        <div>
+        <div style={{marginTop: 10}}>
           <FlexibleXYPlot
             stackBy="x"
-            margin={{left: 125, right: 100}}
+            margin={{left: 90, right: 40}}
             yType={'ordinal'}
-            height={300}
+            height={400}
           >
             <XAxis />
             <YAxis style={{text: {marginLeft: 20}}}/>
@@ -147,12 +147,12 @@ class PackVis extends Component {
     }
 
     return (
-      <div>
+      <div style={{marginTop: 10}}>
         <FlexibleXYPlot
           stackBy="y"
-          margin={{left: 125, right: 100}}
+          margin={{left: 60, right: 35}}
           xType={'ordinal'}
-          height={300}
+          height={400}
         >
           <XAxis />
           <YAxis style={{text: {marginLeft: 20}}}/>

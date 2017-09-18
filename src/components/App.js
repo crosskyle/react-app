@@ -4,8 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import ExpandMore from 'material-ui/svg-icons/navigation/expand-more'
-import FontIcon from 'material-ui/FontIcon'
-
+import NavMenu from 'material-ui/svg-icons/navigation/menu'
 import PacksIndex from './PacksIndex'
 import ItemsIndex from './ItemsIndex'
 import TabSwipe from './TabSwipe'
@@ -28,7 +27,12 @@ class App extends Component {
             title="BackPack"
             style={{textAlign: 'center'}}
             onLeftIconButtonTouchTap={this.handleToggle}
-            iconElementRight={<ExpandMore style={{color: 'white'}}/>}
+            iconElementLeft={<NavMenu style={{color: 'white', width: 28,
+              height: 28,
+              padding: 12}}/>}
+            iconElementRight={<ExpandMore style={{color: 'white', width: 28,
+              height: 28,
+              padding: 12}}/>}
           />
           <TabSwipe />
           <Drawer
