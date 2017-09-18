@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import ExpandMore from 'material-ui/svg-icons/navigation/expand-more'
+import FontIcon from 'material-ui/FontIcon'
 
 import PacksIndex from './PacksIndex'
 import ItemsIndex from './ItemsIndex'

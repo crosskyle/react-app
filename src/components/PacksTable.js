@@ -8,12 +8,22 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table'
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+import IconButton from 'material-ui/IconButton'
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+import FontIcon from 'material-ui/FontIcon'
 
 import ItemAddModal from './ItemAddModal'
+
+const columnStyle = {
+ marginLeft: '0em',
+  paddingLeft: '.25em',
+  marginRight: '0em',
+  paddingRight: '.25em',
+  verticalAlign: 'middle',
+  textAlign: 'left'
+}
 
 class PacksTable extends Component {
 
@@ -26,16 +36,23 @@ class PacksTable extends Component {
             onRowHover={(d) =>  {}/* console.log(category.items[d])*/}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow >
-                <TableHeaderColumn colSpan="12" style={{fontSize: '14px'}}>
+                <TableHeaderColumn colSpan="37" style={{fontSize: '14px'}}>
                   {category.title}
                 </TableHeaderColumn>
               </TableRow>
               <TableRow>
-                <TableHeaderColumn colSpan="3">Name</TableHeaderColumn>
-                <TableHeaderColumn colSpan="6">Description</TableHeaderColumn>
-                <TableHeaderColumn colSpan="1">Oz</TableHeaderColumn>
-                <TableHeaderColumn colSpan="1">Qu</TableHeaderColumn>
-                <TableHeaderColumn colSpan="2"> </TableHeaderColumn>
+                <TableHeaderColumn style={{
+                  marginLeft: '0em',
+                  paddingLeft: '1.25em',
+                  marginRight: '0em',
+                  paddingRight: '.25em',
+                  verticalAlign: 'middle',
+                  textAlign: 'left'}} colSpan="12">Name</TableHeaderColumn>
+                <TableHeaderColumn style={columnStyle} colSpan="12">Description</TableHeaderColumn>
+                <TableHeaderColumn style={columnStyle} colSpan="3">Oz</TableHeaderColumn>
+                <TableHeaderColumn style={columnStyle} colSpan="2">Qu</TableHeaderColumn>
+                <TableHeaderColumn style={columnStyle} colSpan="4"> </TableHeaderColumn>
+                <TableHeaderColumn style={columnStyle} colSpan="4"> </TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody showRowHover={true} displayRowCheckbox={false}>
@@ -54,14 +71,23 @@ class PacksTable extends Component {
     return _.map(category.items, item => {
       return (
         <TableRow key={item.id} hoverable={true}>
-          <TableRowColumn colSpan="3">{item.title}</TableRowColumn>
-          <TableRowColumn colSpan="6">{item.description}</TableRowColumn>
-          <TableRowColumn colSpan="1">{item.weight}</TableRowColumn>
-          <TableRowColumn colSpan="1">{item.quantity}</TableRowColumn>
-          <TableHeaderColumn colSpan="2">
+          <TableRowColumn style={{
+            marginLeft: '0em',
+            paddingLeft: '1.25em',
+            marginRight: '0em',
+            paddingRight: '.25em',
+            verticalAlign: 'middle',
+            textAlign: 'left'}} colSpan="12">{item.title}</TableRowColumn>
+          <TableRowColumn style={columnStyle} colSpan="12">{item.description}</TableRowColumn>
+          <TableRowColumn style={columnStyle} colSpan="3">{item.weight}</TableRowColumn>
+          <TableRowColumn style={columnStyle} colSpan="2">{item.quantity}</TableRowColumn>
+          <TableRowColumn style={columnStyle} colSpan="4"><FontIcon className="material-icons" style={{color:"green", fontSize:"18px"}}>accessibility</FontIcon>
+            <FontIcon className="material-icons" style={{color:"green", fontSize:"16px"}}>restaurant_menu</FontIcon></TableRowColumn>
+          <TableHeaderColumn colSpan="4"
+            style={columnStyle} >
             <IconMenu
               iconButtonElement={
-                <IconButton style={{ paddingRight: '20em', paddingLeft: '0em', verticalAlign: 'middle', textAlign: 'left'}}>
+                <IconButton  style={columnStyle}>
                   <MoreVertIcon />
                 </IconButton>}
               anchorOrigin={{horizontal: 'right', vertical: 'top'}}
