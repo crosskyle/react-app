@@ -8,6 +8,8 @@ import NavMenu from 'material-ui/svg-icons/navigation/menu'
 import PacksIndex from './PacksIndex'
 import ItemsIndex from './ItemsIndex'
 import TabSwipe from './TabSwipe'
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 class App extends Component {
   constructor(props) {
@@ -50,4 +52,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default DragDropContext(HTML5Backend)(App)
