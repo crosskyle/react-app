@@ -28,12 +28,12 @@ const columnStyle = {
 }
 
 const categoryTarget = {
-  canDrop(props) {
+  canDrop() {
     return true
   },
 
   drop(props) {
-    console.log(props.category)
+    return props.category
   }
 }
 
@@ -41,7 +41,8 @@ function collect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
-    canDrop: monitor.canDrop()
+    canDrop: monitor.canDrop(),
+    getItem: monitor.getItem()
   }
 }
 
@@ -140,6 +141,7 @@ class PacksTable extends Component {
       </TableBody>
       </Table>
       {isOver && canDrop && this.renderOverlay('green')}
+
 
       <ItemAddModal packId={packId} categoryId={category.id}/>
 

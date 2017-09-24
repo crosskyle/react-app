@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { DragSource } from 'react-dnd'
 import { ItemTypes } from './drag-n-drop/constants'
-import { deleteItem } from '../actions'
+import { deleteItem, putItemInCategory } from '../actions'
 import { ListItem } from 'material-ui/List'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/content/remove-circle-outline'
@@ -10,7 +10,13 @@ import { grey400, red500 } from 'material-ui/styles/colors'
 
 const itemSource = {
   beginDrag(props) {
-    return {}
+    return props.item
+  },
+
+  endDrag(props, monitor) {
+    const categoryEndpoint = monitor.getDropResult().self
+    const itemId = props.item.id
+    props.putItemInCategory(categoryEndpoint, itemId)
   }
 }
 
@@ -51,6 +57,6 @@ class Item extends Component {
 
 
 Item = DragSource(ItemTypes.DRAWER_ITEM, itemSource, collect)(Item)
-Item = connect(null, { deleteItem })(Item)
+Item = connect(null, { deleteItem, putItemInCategory })(Item)
 
 export default Item

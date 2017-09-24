@@ -79,6 +79,19 @@ export function createItemInCategory(packId, categoryId, reqObj) {
   }
 }
 
+export function putItemInCategory(categoryEndpoint, itemId) {
+  const response = axios.put(`${ROOT_URL}${categoryEndpoint}/items/${itemId}`)
+    .then((resp) => {
+      console.log(resp.data)
+      return resp.data
+    })
+
+  return {
+    type: READ_PACK,
+    payload: response
+  }
+}
+
 
 export function readPacks() {
   const response = axios.get(`${ROOT_URL}/api/users/${USER_ID}/packs`)
