@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { ItemTypes } from './drag-n-drop/constants'
+import { DropTarget } from 'react-dnd'
 import _ from 'lodash'
 import {
   Table,
@@ -25,47 +27,25 @@ const columnStyle = {
   textAlign: 'left'
 }
 
-class PacksTable extends Component {
+const categoryTarget = {
+  canDrop(props) {
+    return true
+  },
 
-  renderCategories(categories) {
-    return _.map(categories, category => {
-      return (
-        <div style={{ paddingLeft: '.5em', paddingRight: '.5em'}} key={category.id}>
-          <Table
-            fixedHeader={true}
-            onRowHover={(d) =>  {}/* console.log(category.items[d])*/}>
-            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-              <TableRow >
-                <TableHeaderColumn colSpan="35" style={{fontSize: '14px'}}>
-                  {category.title}
-                </TableHeaderColumn>
-              </TableRow>
-              <TableRow>
-                <TableHeaderColumn style={{
-                  marginLeft: '0em',
-                  paddingLeft: '.5em',
-                  marginRight: '0em',
-                  paddingRight: '.25em',
-                  verticalAlign: 'middle',
-                  textAlign: 'left'}} colSpan="12">Name</TableHeaderColumn>
-                <TableHeaderColumn style={columnStyle} colSpan="12">Description</TableHeaderColumn>
-                <TableHeaderColumn style={columnStyle} colSpan="3">Oz</TableHeaderColumn>
-                <TableHeaderColumn style={columnStyle} colSpan="2">Qty</TableHeaderColumn>
-                <TableHeaderColumn style={columnStyle} colSpan="4"> </TableHeaderColumn>
-                <TableHeaderColumn style={columnStyle} colSpan="2"> </TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody showRowHover={true} displayRowCheckbox={false}>
-              {this.renderItems(category)}
-            </TableBody>
-          </Table>
-
-          <ItemAddModal packId={this.props.packId} categoryId={category.id}/>
-
-        </div>
-      )
-    })
+  drop(props) {
+    console.log(props.category)
   }
+}
+
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop()
+  }
+}
+
+class PacksTable extends Component {
 
   renderItems(category) {
     return _.map(category.items, item => {
@@ -107,14 +87,65 @@ class PacksTable extends Component {
     })
   }
 
+  renderOverlay(color) {
+    return (
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        height: '100%',
+        width: '100%',
+        zIndex: 1,
+        opacity: 0.5,
+        backgroundColor: color,
+      }} />
+    );
+  }
+
 
   render() {
-    return(
-      <div>
-        {this.renderCategories(this.props.categories)}
+    const { category, packId, connectDropTarget, isOver, canDrop } = this.props
+
+    return connectDropTarget(
+      <div style={{ paddingLeft: '.5em', paddingRight: '.5em'}} >
+
+      <Table
+        fixedHeader={true}
+        onRowHover={(d) =>  {}/* console.log(category.items[d])*/}>
+      <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+      <TableRow >
+        <TableHeaderColumn colSpan="35" style={{fontSize: '14px'}}>
+          {category.title}
+        </TableHeaderColumn>
+      </TableRow>
+      <TableRow>
+        <TableHeaderColumn style={{
+          marginLeft: '0em',
+          paddingLeft: '.5em',
+          marginRight: '0em',
+          paddingRight: '.25em',
+          verticalAlign: 'middle',
+          textAlign: 'left'}} colSpan="12">Name</TableHeaderColumn>
+        <TableHeaderColumn style={columnStyle} colSpan="12">Description</TableHeaderColumn>
+        <TableHeaderColumn style={columnStyle} colSpan="3">Oz</TableHeaderColumn>
+        <TableHeaderColumn style={columnStyle} colSpan="2">Qty</TableHeaderColumn>
+        <TableHeaderColumn style={columnStyle} colSpan="4"> </TableHeaderColumn>
+        <TableHeaderColumn style={columnStyle} colSpan="2"> </TableHeaderColumn>
+      </TableRow>
+      </TableHeader>
+      <TableBody showRowHover={true} displayRowCheckbox={false}>
+
+      {this.renderItems(category)}
+
+      </TableBody>
+      </Table>
+      {isOver && canDrop && this.renderOverlay('green')}
+
+      <ItemAddModal packId={packId} categoryId={category.id}/>
+
       </div>
     )
   }
 }
 
-export default PacksTable
+export default DropTarget(ItemTypes.DRAWER_ITEM, categoryTarget, collect)(PacksTable)

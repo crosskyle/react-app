@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 import PackEditModal from './PackEditModal'
 import PacksTable from './PacksTable'
 import CategoryAddModal from './CategoryAddModal'
 
 class PacksShow extends Component {
+
+  renderCategories(categories) {
+    return _.map(categories, category => {
+      return <PacksTable key={category.id} category={category} packId={this.props.pack.id} />
+    })
+  }
 
   render () {
     const { pack } = this.props
@@ -21,7 +28,7 @@ class PacksShow extends Component {
     return (
       <div style={{marginTop: 10}}>
         <PackEditModal pack={pack}/>
-        <PacksTable packId={pack.id} categories={pack.categories}/>
+        {this.renderCategories(pack.categories)}
         <br /><br />
         <CategoryAddModal packId={pack.id}/>
       </div>

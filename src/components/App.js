@@ -38,7 +38,6 @@ class App extends Component {
           />
           <TabSwipe />
           <Drawer
-            docked={false}
             width={250}
             open={this.state.open}
             onRequestChange={(open) => this.setState({open})}
