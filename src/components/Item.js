@@ -14,9 +14,11 @@ const itemSource = {
   },
 
   endDrag(props, monitor) {
-    const categoryEndpoint = monitor.getDropResult().self
-    const itemId = props.item.id
-    props.putItemInCategory(categoryEndpoint, itemId)
+    if (monitor.getDropResult()) {
+      const categoryEndpoint = monitor.getDropResult().self
+      const itemId = props.item.id
+      props.putItemInCategory(categoryEndpoint, itemId)
+    }
   }
 }
 
